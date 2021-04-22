@@ -1,0 +1,22 @@
+version: "2.3"
+services:
+  jupyter:
+    # image: continuumio/anaconda3:2019.03
+    build: .
+    container_name: jupyter
+    working_dir: /home/jovyan/work
+    volumes:
+      - ./data:/home/jovyan/work
+      - ./dataset:/dataset
+    ports:
+      - 8887:8888
+      - 6006:6006
+    restart: unless-stopped
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - PYTHONPATH=/home/jovyan/work/J-Quants-Tutorial/handson/Chapter02/archive/src
+      - WORKDIR=/home/jovyan/work
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    runtime: nvidia
+    command: jupyter-lab --no-browser --ip 0.0.0.0 --allow-root --no-browser --no-mathjax --NotebookApp.disable_check_xsrf=True  --NotebookApp.token='' --NotebookApp.password='' /home/jovyan/work
