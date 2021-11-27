@@ -1,10 +1,7 @@
 version: "2.3"
 services:
   jupyter:
-    # image: continuumio/anaconda3:2019.03
-    build:
-      context: Docker
-      dockerfile: Dockerfile.latest
+    image: sammrai/jupyter:latest
     container_name: jupyter
     working_dir: /home/jovyan/work
     volumes:
@@ -42,8 +39,3 @@ services:
     ports:
       - "5000:5000"
     restart: always
-  python3:
-    build:
-      context: Docker
-      dockerfile: Dockerfile.latest
-    image: cronicle-python3
