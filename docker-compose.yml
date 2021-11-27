@@ -2,21 +2,48 @@ version: "2.3"
 services:
   jupyter:
     # image: continuumio/anaconda3:2019.03
-    build: .
+    build:
+      context: Docker
+      dockerfile: Dockerfile.latest
     container_name: jupyter
     working_dir: /home/jovyan/work
     volumes:
       - ./data:/home/jovyan/work
       - ./dataset:/dataset
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - 8887:8888
       - 6006:6006
+    user: 1000:1000
     restart: unless-stopped
     environment:
       - JUPYTER_ENABLE_LAB=yes
-      - PYTHONPATH=/home/jovyan/work/J-Quants-Tutorial/handson/Chapter02/archive/src
+      - PYTHONPATH=/home/jovyan/work/mltlib
       - WORKDIR=/home/jovyan/work
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=all
+      - TZ=Asia/Tokyo
     runtime: nvidia
-    command: jupyter-lab --no-browser --ip 0.0.0.0 --allow-root --no-browser --no-mathjax --NotebookApp.disable_check_xsrf=True  --NotebookApp.token='' --NotebookApp.password='' /home/jovyan/work
+    command: jupyter-lab --no-browser --ip 0.0.0.0 --allow-root --no-browser --NotebookApp.disable_check_xsrf=True  --NotebookApp.token='' --NotebookApp.password='' /home/jovyan/work
+    mem_limit: 13g
+      
+  mlflow:
+    container_name: mlflow
+    image: atcommons/mlflow-server
+    volumes:
+      - ./data:/home/jovyan/work
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      BACKEND_URI: sqlite:////home/jovyan/work/mlflow/mlflow.db
+      ARTIFACT_ROOT: /home/jovyan/work/mlflow/artifacts
+      TZ: Asia/Tokyo
+    depends_on:
+      - jupyter
+    ports:
+      - "5000:5000"
+    restart: always
+  python3:
+    build:
+      context: Docker
+      dockerfile: Dockerfile.latest
+    image: cronicle-python3

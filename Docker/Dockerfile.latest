@@ -1,0 +1,58 @@
+FROM continuumio/anaconda3
+
+# shap用にg++とgccをインストールします
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends g++ gcc libgl1-mesa-dev make unzip chromium udev
+
+WORKDIR /tmp
+RUN wget http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz
+RUN tar zxvf ta-lib* && cd ta-lib* && ./configure --prefix=/usr && make && make install
+
+# 必要なライブラリをインストールします
+RUN pip install --upgrade pip
+RUN pip install shap \
+                slicer \
+                xgboost \
+                opencv-contrib-python \
+                joblib \
+                numpy \
+                pandas \
+                scikit-learn \
+                seaborn \
+                japanize-matplotlib \
+                influxdb \
+                influxdb-client \
+                ccxt \
+                mplfinance \
+                Ta-Lib \
+                git+https://github.com/twopirllc/pandas-ta \
+                hyperas \
+                git+https://github.com/pfnet-research/xfeat.git \
+                backtesting \
+                gast \
+                tensorflow-datasets \
+                TA-Lib \
+                mlflow \
+                pybotters \
+                line-bot-sdk \
+                nest-asyncio \
+                sqlalchemy \
+                pyppeteer \
+                git+https://github.com/richmanbtc/crypto_data_fetcher.git@v0.0.14#egg=crypto_data_fetcher
+RUN conda install -y tensorflow-gpu keras scipy
+
+# 拡張機能インストール
+# RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
+# RUN jupyter labextension install jupyter-matplotlib
+
+# フォントインストール
+RUN wget https://fonts.google.com/download?family=Noto%20Sans%20JP -O /tmp/fonts_noto.zip && \
+    mkdir -p /usr/share/fonts &&\
+    unzip /tmp/fonts_noto.zip -d /usr/share/fonts
+
+ARG USERNAME=jnbuser
+ARG GROUPNAME=jnbuser
+ARG UID=1000
+ARG GID=1000
+RUN groupadd -g $GID $GROUPNAME && \
+    useradd -m -s /bin/bash -u $UID -g $GID $USERNAME
