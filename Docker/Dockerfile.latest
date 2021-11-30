@@ -38,7 +38,8 @@ RUN pip install shap \
                 nest-asyncio \
                 sqlalchemy \
                 pyppeteer \
-                git+https://github.com/richmanbtc/crypto_data_fetcher.git@v0.0.14#egg=crypto_data_fetcher
+                git+https://github.com/richmanbtc/crypto_data_fetcher.git@v0.0.14#egg=crypto_data_fetcher \
+                data_cache
 RUN conda install -y tensorflow-gpu keras scipy
 
 # 拡張機能インストール
