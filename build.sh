@@ -1,15 +1,15 @@
 #!/bin/bash
 
-
+dockerbuildcmd="ionice -c 3 docker build"
 function build_image(){
     imgname=$1
-    docker build --tag=$imgname -f Docker/Dockerfile.latest Docker/
+    $dockerbuildcmd --tag=$imgname -f Docker/Dockerfile.latest Docker/
     docker push $imgname
 }
 
 if [ "$1" = "test" ];then
   imgname=sammrai/jupyter:test
-  docker build --tag=$imgname -f Docker/Dockerfile.latest Docker/ && \
+  $dockerbuildcmd --tag=$imgname -f Docker/Dockerfile.latest Docker/ && \
   docker run --rm --gpus all -v $(pwd):/work -w /work/Docker $imgname python test.py
   exit
 fi

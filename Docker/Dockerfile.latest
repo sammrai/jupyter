@@ -14,7 +14,7 @@ RUN wget https://fonts.google.com/download?family=Noto%20Sans%20JP -O /tmp/fonts
 RUN pip install --upgrade pip
 RUN pip install \
                 backtesting \
-                ccxt \
+                ccxt==1.62.56 \
                 data_cache \
                 gast \
                 git+https://github.com/pfnet-research/xfeat.git \
@@ -33,6 +33,7 @@ RUN pip install \
                 numpy \
                 opencv-contrib-python \
                 pandas \
+                pandarallel \
                 pyppeteer \
                 scikit-learn \
                 scipy \

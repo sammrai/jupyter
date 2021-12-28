@@ -8,6 +8,7 @@ services:
       - ./data:/home/jovyan/work
       - ./dataset:/dataset
       - /etc/localtime:/etc/localtime:ro
+      - /data:/data
     ports:
       - 8887:8888
       - 6006:6006
