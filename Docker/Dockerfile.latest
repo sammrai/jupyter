@@ -13,6 +13,7 @@ RUN wget https://fonts.google.com/download?family=Noto%20Sans%20JP -O /tmp/fonts
 # 必要なライブラリをインストールします
 RUN pip install --upgrade pip
 RUN pip install \
+                aioinflux \
                 backtesting \
                 ccxt==1.62.56 \
                 data_cache \
@@ -43,8 +44,9 @@ RUN pip install \
                 sqlalchemy \
                 tensorflow-datasets \
                 tensorflow-gpu==2.6.2 \
-                xgboost \
-                pybotters
+                xgboost
+
+RUN pip install pybotters==0.9.0 
 
 # talibをインストール
 WORKDIR /tmp
