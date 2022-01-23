@@ -43,7 +43,8 @@ RUN pip install \
                 sqlalchemy \
                 tensorflow-datasets \
                 tensorflow-gpu==2.6.2 \
-                xgboost
+                xgboost \
+                pybotters
 
 # talibをインストール
 WORKDIR /tmp
