@@ -3,7 +3,6 @@ FROM continuumio/anaconda3
 # 必要なライブラリをインストールします
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends g++ gcc libgl1-mesa-dev make unzip chromium udev
-RUN conda install -y -c nvidia cudnn
 
 # フォントインストール
 RUN wget https://noto-website-2.storage.googleapis.com/pkgs/NotoSansCJKjp-hinted.zip -O /tmp/fonts_noto.zip && \
