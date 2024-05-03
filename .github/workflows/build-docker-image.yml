@@ -41,4 +41,4 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ github.repository }}:test
+            ${{ github.repository }}:test-${{ github.sha }}
