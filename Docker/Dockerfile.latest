@@ -6,21 +6,22 @@ RUN apt-get install -y --no-install-recommends g++ gcc libgl1-mesa-dev make unzi
 RUN conda install -y -c nvidia cudnn
 
 # フォントインストール
-RUN wget https://fonts.google.com/download?family=Noto%20Sans%20JP -O /tmp/fonts_noto.zip && \
+RUN wget https://noto-website-2.storage.googleapis.com/pkgs/NotoSansCJKjp-hinted.zip -O /tmp/fonts_noto.zip && \
     mkdir -p /usr/share/fonts &&\
     unzip /tmp/fonts_noto.zip -d /usr/share/fonts
 
 # 必要なライブラリをインストールします
 RUN pip install --upgrade pip
 RUN pip install \
+                aioinflux \
                 backtesting \
-                ccxt==1.62.56 \
+                ccxt \
                 data_cache \
                 gast \
-                git+https://github.com/pfnet-research/xfeat.git \
                 git+https://github.com/richmanbtc/crypto_data_fetcher.git@v0.0.14#egg=crypto_data_fetcher \
                 git+https://github.com/twopirllc/pandas-ta \
                 hyperas \
+                hyperopt==0.2.5 \
                 influxdb \
                 influxdb-client \
                 japanize-matplotlib \
@@ -35,6 +36,7 @@ RUN pip install \
                 pandas \
                 pandarallel \
                 pyppeteer \
+                py4j \
                 scikit-learn \
                 scipy \
                 seaborn \
@@ -42,15 +44,13 @@ RUN pip install \
                 slicer \
                 sqlalchemy \
                 tensorflow-datasets \
-                tensorflow-gpu==2.6.2 \
                 xgboost \
-                pybotters
-
-# talibをインストール
-WORKDIR /tmp
-RUN wget http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz
-RUN tar zxvf ta-lib* && cd ta-lib* && ./configure --prefix=/usr && make && make install
-RUN pip install TA-lib numpy==1.20.0
+                ipyleaflet \
+                TA-Lib-Precompiled \
+                pybotters \
+                pandas_ta \
+                telethon
+RUN pip install -U jupyterlab
 
 ARG USERNAME=jnbuser
 ARG GROUPNAME=jnbuser
