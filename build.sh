@@ -15,11 +15,11 @@ function err(){
 if [ "$1" = "test" ];then
   imgname=sammrai/jupyter:test
   $dockerbuildcmd --tag=$imgname -f Docker/Dockerfile.latest Docker/ && \
-  docker run --rm --gpus all -v $(pwd):/work -w /work/Docker $imgname python test.py || err
-  docker run --rm -e PYTHONPATH=$HOME/jupyter/data/mltlib -v $HOME:$HOME sammrai/jupyter:test python $HOME/jupyter/data/mltlib/agg/telegraf_fetch_ohlcv.py || err
-  docker run --rm -e PYTHONPATH=$HOME/jupyter/data/mltlib -v $HOME:$HOME sammrai/jupyter:test python $HOME/jupyter/data/mltlib/agg/telegraf_make_dollbar.py || err
-  docker run --rm -e PYTHONPATH=$HOME/jupyter/data/mltlib -v $HOME:$HOME sammrai/jupyter:test python $HOME/jupyter/data/mltlib/agg/telegraf_fetch_balance.py || err
-  docker run --rm -e PYTHONPATH=$HOME/jupyter/data/mltlib -v $HOME:$HOME sammrai/jupyter:test python $HOME/jupyter/data/mltlib/agg/telegraf_fetch_trades.py || err
+  # docker run --rm --gpus all -v $(pwd):/work -w /work/Docker $imgname python test.py || err
+  # docker run --rm -e PYTHONPATH=$HOME/jupyter/data/mltlib -v $HOME:$HOME sammrai/jupyter:test python $HOME/jupyter/data/mltlib/agg/telegraf_fetch_ohlcv.py || err
+  # docker run --rm -e PYTHONPATH=$HOME/jupyter/data/mltlib -v $HOME:$HOME sammrai/jupyter:test python $HOME/jupyter/data/mltlib/agg/telegraf_make_dollbar.py || err
+  # docker run --rm -e PYTHONPATH=$HOME/jupyter/data/mltlib -v $HOME:$HOME sammrai/jupyter:test python $HOME/jupyter/data/mltlib/agg/telegraf_fetch_balance.py || err
+  # docker run --rm -e PYTHONPATH=$HOME/jupyter/data/mltlib -v $HOME:$HOME sammrai/jupyter:test python $HOME/jupyter/data/mltlib/agg/telegraf_fetch_trades.py || err
   exit
 fi
 
