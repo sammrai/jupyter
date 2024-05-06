@@ -48,7 +48,8 @@ RUN pip install \
                 TA-Lib-Precompiled \
                 pybotters \
                 pandas_ta \
-                telethon
+                telethon \
+                lightgbm
 RUN pip install -U jupyterlab
 
 ARG USERNAME=jnbuser
