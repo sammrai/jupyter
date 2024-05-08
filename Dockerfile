@@ -49,7 +49,8 @@ RUN pip install \
                 pybotters \
                 pandas_ta \
                 telethon \
-                lightgbm
+                lightgbm \
+                scikit-optimize
 RUN pip install -U jupyterlab
 
 ARG USERNAME=jnbuser
